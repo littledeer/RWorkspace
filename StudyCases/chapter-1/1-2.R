@@ -1,0 +1,7 @@
+setwd("F:/RStudio/StudyCases")
+options(digits=6)
+x <- runif(20)
+summary(x)
+hist(x)
+savehistory()
+save.image()
