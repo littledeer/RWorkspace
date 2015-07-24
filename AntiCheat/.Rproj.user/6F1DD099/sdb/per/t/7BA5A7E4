@@ -1,0 +1,18 @@
+{
+    "contents" : "library(xgboost)\nrequire(gbm)\nrequire(methods)\nrequire(Matrix)\nsetwd(\"F:/RWorkspace/AntiCheat\")\n\n#load model\nbst <- xgb.load('model/gbdt/binarylogistic-01-10-3000.model')\n\ndvalidation <- read.table(\"data/gbdt/Validation.txt\", header=FALSE, sep=\",\")\nvlabel <- as.numeric(dvalidation[[49]])\nvdata <- as.matrix(dvalidation[3:48])\n\nvxgmat <- xgb.DMatrix(vdata, label = vlabel)\n\nvpred <- predict(bst, vxgmat, missing = NULL, outputmargin = FALSE, ntreelimit = NULL, predleaf = FALSE)\n\nstr(vpred)\nvpred[vpred>0.1] <- 1\nvpred[vpred<=0.1] <- 0\nvpred <- as.integer(vpred)\nvreal <- vlabel\n\ngbm.roc.area(vreal,vpred)\n\ncmv <- data.frame(vpred, vreal)\nftable(cmv)",
+    "created" : 1437719867568.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "47254721",
+    "id" : "7BA5A7E4",
+    "lastKnownWriteTime" : 1437722405,
+    "path" : "F:/RWorkspace/AntiCheat/src/gbdt/validation.R",
+    "project_path" : "src/gbdt/validation.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
