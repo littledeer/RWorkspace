@@ -1,12 +1,12 @@
 {
-    "contents" : "library(xgboost)\nrequire(methods)\nrequire(Matrix)\nsetwd(\"F:/RWorkspace/AntiCheat\")\n\n#Train Model\ndtrain <- read.table(\"data/gbdt/Train.txt\", header=FALSE, sep=\",\")\ntlabel <- as.numeric(dtrain[[49]])\ntdata <- as.matrix(dtrain[3:48])\n\ntxgmat <- xgb.DMatrix(tdata, label = tlabel)\n\nparam <- list(\"objective\" = \"binary:logistic\",\n              \"bst:eta\" = 0.1,\n              \"bst:max_depth\" = 10,\n              \"eval_metric\" = \"auc\",\n              \"eval_metric\" = \"error\",\n              \"silent\" = 0,\n              \"nthread\" = 16)\nwatchlist <- list(\"train\" = txgmat)\n\nnround = 6000\n\nbst = xgb.train(param, txgmat, nround, watchlist)\n\n#save model\nxgb.save(bst, 'model/gbdt/binarylogistic-01-20-3000.model')",
+    "contents" : "library(xgboost)\nrequire(methods)\nrequire(Matrix)\nsetwd(\"F:/RWorkspace/AntiCheat\")\n\n#Train Model\ndtrain <- read.table(\"data/gbdt/Train.txt\", header=FALSE, sep=\",\")\n#dtrain <- read.csv(\"data/gbdt/Train.csv\", header=TRUE)\ntlabel <- as.numeric(dtrain[[49]])\ntdata <- as.matrix(dtrain[3:48])\n\ntxgmat <- xgb.DMatrix(tdata, label = tlabel)\n\nparam <- list(\"objective\" = \"binary:logistic\",\n              \"bst:eta\" = 0.1,\n              \"bst:max_depth\" = 5,\n              \"eval_metric\" = \"auc\",\n              \"eval_metric\" = \"error\",\n              \"silent\" = 1,\n              \"nthread\" = 4)\nwatchlist <- list(\"train\" = txgmat)\n\nnround = 2000\n\nbst = xgb.train(param, txgmat, nround, watchlist)\n\n#save model\nxgb.save(bst, 'model/gbdt/binarylogistic-01-5-2000.model')",
     "created" : 1437724686510.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1232522324",
+    "hash" : "1477626209",
     "id" : "78D52A22",
-    "lastKnownWriteTime" : 1437736454,
+    "lastKnownWriteTime" : 1438074569,
     "path" : "F:/RWorkspace/AntiCheat/src/gbdt/train.R",
     "project_path" : "src/gbdt/train.R",
     "properties" : {
